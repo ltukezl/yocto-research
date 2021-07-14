@@ -4,3 +4,5 @@ project (gitproject)
 set(SOURCE_FILES source.cpp)
 
 add_executable(github-prog ${SOURCE_FILES})
+
+install(TARGETS github-prog DESTINATION bin)
