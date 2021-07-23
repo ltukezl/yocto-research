@@ -2,7 +2,10 @@ obj-m := yocto.o
 VER = $(shell uname -r)
 
 all:
-	make -C /lib/modules/$(VER)/build M=$(PWD) modules
+	make -C $(KERNEL_SRC) M=$(PWD) modules
+
+modules_install:
+	make -C $(KERNEL_SRC) M=$(SRC) modules_install
 
 clean:
-	make -C /lib/modules/$(VER)/build M=$(PWD) clean
+	make -C $(KERNEL_SRC) M=$(PWD) clean
