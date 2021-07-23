@@ -1,7 +1,8 @@
 obj-m := yocto.o
+VER = $(shell uname -r)
 
 all:
-	make -C $(KERNEL_SRC) M=$(PWD)
+	make -C $(KERNEL_SRC) M=$(PWD) modules
 
 modules_install:
 	make -C $(KERNEL_SRC) M=$(PWD) modules_install
