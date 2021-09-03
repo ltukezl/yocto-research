@@ -1,17 +1,25 @@
-#include <linux/i2c-dev.h>
-#include <i2c/smbus.h>
+extern "C"{
+    #include <linux/i2c-dev.h>
+    #include <i2c/smbus.h>
+}
+#include <sys/ioctl.h>
+
+#include <stdio.h>
 #include <iostream>
 #include <stdint.h>
+#include <fstream>
+#include <string>
+#include <fcntl.h>
 
 int main(){
     uint8_t devAddr = 0x1E;
     uint8_t devReg = 0xD;
-    uint8_t retValue = 0;
-    char* i2cInterface = "/dev/i2c-3";
+    uint32_t retValue = 0;
+    std::string i2cInterface = "/dev/i2c-3";
 
-    auto file = open(i2cInterface, O_RDWR);
+    auto file = open(i2cInterface.c_str(), I2C_RDWR);
     ioctl(file, I2C_SLAVE, devAddr);
-    s_i2c_read_regs(file, devAddr, devReg, &retValue);
+    retValue = i2c_smbus_read_word_data(file, devReg);
     std::cout << "read from i2c " << retValue << std::endl;
 
 }

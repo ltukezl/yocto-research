@@ -56,16 +56,51 @@ CMAKE_BINARY_DIR = /home/tuomo/git/yocto-research
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
 
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
+# Special rule for the target install/strip
+install/strip/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip/fast
 
-.PHONY : edit_cache/fast
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
+
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
+
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+
+.PHONY : list_install_components/fast
 
 # Special rule for the target rebuild_cache
 rebuild_cache:
@@ -77,6 +112,17 @@ rebuild_cache:
 rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
+
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -111,17 +157,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named github-prog
+# Target rules for targets named i2c-tester
 
 # Build rule for target.
-github-prog: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 github-prog
-.PHONY : github-prog
+i2c-tester: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 i2c-tester
+.PHONY : i2c-tester
 
 # fast build rule for target.
-github-prog/fast:
-	$(MAKE) -f CMakeFiles/github-prog.dir/build.make CMakeFiles/github-prog.dir/build
-.PHONY : github-prog/fast
+i2c-tester/fast:
+	$(MAKE) -f CMakeFiles/i2c-tester.dir/build.make CMakeFiles/i2c-tester.dir/build
+.PHONY : i2c-tester/fast
 
 source.o: source.cpp.o
 
@@ -129,7 +175,7 @@ source.o: source.cpp.o
 
 # target to build an object file
 source.cpp.o:
-	$(MAKE) -f CMakeFiles/github-prog.dir/build.make CMakeFiles/github-prog.dir/source.cpp.o
+	$(MAKE) -f CMakeFiles/i2c-tester.dir/build.make CMakeFiles/i2c-tester.dir/source.cpp.o
 .PHONY : source.cpp.o
 
 source.i: source.cpp.i
@@ -138,7 +184,7 @@ source.i: source.cpp.i
 
 # target to preprocess a source file
 source.cpp.i:
-	$(MAKE) -f CMakeFiles/github-prog.dir/build.make CMakeFiles/github-prog.dir/source.cpp.i
+	$(MAKE) -f CMakeFiles/i2c-tester.dir/build.make CMakeFiles/i2c-tester.dir/source.cpp.i
 .PHONY : source.cpp.i
 
 source.s: source.cpp.s
@@ -147,7 +193,7 @@ source.s: source.cpp.s
 
 # target to generate assembly for a file
 source.cpp.s:
-	$(MAKE) -f CMakeFiles/github-prog.dir/build.make CMakeFiles/github-prog.dir/source.cpp.s
+	$(MAKE) -f CMakeFiles/i2c-tester.dir/build.make CMakeFiles/i2c-tester.dir/source.cpp.s
 .PHONY : source.cpp.s
 
 # Help Target
@@ -156,9 +202,13 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... edit_cache"
+	@echo "... install/strip"
+	@echo "... install/local"
+	@echo "... install"
+	@echo "... list_install_components"
 	@echo "... rebuild_cache"
-	@echo "... github-prog"
+	@echo "... edit_cache"
+	@echo "... i2c-tester"
 	@echo "... source.o"
 	@echo "... source.i"
 	@echo "... source.s"
