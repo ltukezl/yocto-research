@@ -3,6 +3,6 @@ project (gitproject)
 
 set(SOURCE_FILES source.cpp)
 
-add_executable(github-prog ${SOURCE_FILES})
+add_executable(i2c-tester ${SOURCE_FILES})
 
-install(TARGETS github-prog DESTINATION bin)
+install(TARGETS i2c-tested DESTINATION bin)
