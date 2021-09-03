@@ -5,4 +5,4 @@ set(SOURCE_FILES source.cpp)
 
 add_executable(i2c-tester ${SOURCE_FILES})
 
-install(TARGETS i2c-tested DESTINATION bin)
+install(TARGETS i2c-tester DESTINATION bin)
