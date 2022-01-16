@@ -1,0 +1,13 @@
+diff --git a/source.cpp b/source.cpp
+index 62fc7b3..4ac4757 100644
+--- a/source.cpp
++++ b/source.cpp
+@@ -3,7 +3,7 @@
+ 
+ int main()
+ {
+-    std::ifstream f("file.txt");
++    std::ifstream f("/usr/bin/file2.txt");
+ 
+     if (f.is_open())
+         std::cout << f.rdbuf();
